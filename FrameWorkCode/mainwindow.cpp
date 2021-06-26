@@ -42,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
     str.replace(",, ", "\n");
    // str.replace(", ","\t");
     ui->textEdit->setText(str);
+    QObject::connect(ui->textBrowser, &QTextEdit::currentCharFormatChanged, this, &MainWindow::on_text_format_change);
 }
 
 MainWindow::~MainWindow()
@@ -50,6 +51,32 @@ MainWindow::~MainWindow()
 }
 
 
+void MainWindow::on_text_format_change(const QTextCharFormat &f){
+    if(f.fontWeight() == QFont::Bold)
+        this->ui->actionBold->setChecked(true);
+    else
+        this->ui->actionBold->setChecked(false);
+
+    switch(f.verticalAlignment()){
+        case QTextCharFormat::AlignSubScript:
+        {
+            this->ui->actionsubscript->setChecked(true);
+            this->ui->actionsuperscript->setChecked(false);
+            break;
+        }
+        case QTextCharFormat::AlignSuperScript:
+        {   this->ui->actionsuperscript->setChecked(true);
+            this->ui->actionsubscript->setChecked(false);
+            break;
+        }
+        default:
+        {
+            this->ui->actionsubscript->setChecked(false);
+            this->ui->actionsuperscript->setChecked(false);
+            break;
+        }
+    }
+}
 
 /*
 
@@ -2428,4 +2455,49 @@ void MainWindow::on_actionHindi_triggered()
 void MainWindow::on_actionEnglish_triggered()
 {
     HinFlag = 0 , SanFlag = 0;
+}
+
+void MainWindow::on_actionBold_triggered(bool checked)
+{
+    QTextCharFormat format;
+    if(checked)
+        format.setFontWeight(QFont::Bold);
+    else
+        format.setFontWeight(QFont::Normal);
+
+    QTextCursor cursor = ui->textBrowser->textCursor();
+    cursor.mergeCharFormat(format);
+    ui->textBrowser->mergeCurrentCharFormat(format);
+}
+
+void MainWindow::on_actionsuperscript_triggered(bool checked)
+{
+    QTextCharFormat format;
+    int alignment;
+    if(!checked)
+        alignment = QTextCharFormat::AlignNormal;
+    else
+        alignment = QTextCharFormat::AlignSuperScript;
+
+    format.setVerticalAlignment((QTextCharFormat::VerticalAlignment)alignment);
+
+    QTextCursor cursor = ui->textBrowser->textCursor();
+    cursor.mergeCharFormat(format);
+    ui->textBrowser->mergeCurrentCharFormat(format);
+}
+
+void MainWindow::on_actionsubscript_triggered(bool checked)
+{
+    QTextCharFormat format;
+    int alignment;
+    if(!checked)
+        alignment = QTextCharFormat::AlignNormal;
+    else
+        alignment = QTextCharFormat::AlignSubScript;
+
+    format.setVerticalAlignment((QTextCharFormat::VerticalAlignment)alignment);
+
+    QTextCursor cursor = ui->textBrowser->textCursor();
+    cursor.mergeCharFormat(format);
+    ui->textBrowser->mergeCurrentCharFormat(format);
 }

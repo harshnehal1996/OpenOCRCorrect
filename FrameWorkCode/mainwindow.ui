@@ -227,6 +227,9 @@ p, li { white-space: pre-wrap; }
    <addaction name="actionOpen"/>
    <addaction name="actionSave"/>
    <addaction name="actionSave_As"/>
+   <addaction name="actionBold"/>
+   <addaction name="actionsuperscript"/>
+   <addaction name="actionsubscript"/>
    <addaction name="actionLoadData"/>
    <addaction name="separator"/>
    <addaction name="actionSpell_Check"/>
@@ -488,6 +491,42 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="toolTip">
     <string>English</string>
+   </property>
+  </action>
+  <action name="actionBold">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="AppResources.qrc">
+     <normaloff>:/Images/bold-icon-256.png</normaloff>:/Images/bold-icon-256.png</iconset>
+   </property>
+   <property name="text">
+    <string>Bold</string>
+   </property>
+  </action>
+  <action name="actionsuperscript">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="AppResources.qrc">
+     <normaloff>:/Images/superscipt.png</normaloff>:/Images/superscipt.png</iconset>
+   </property>
+   <property name="text">
+    <string>superscript</string>
+   </property>
+  </action>
+  <action name="actionsubscript">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="AppResources.qrc">
+     <normaloff>:/Images/subscript.png</normaloff>:/Images/subscript.png</iconset>
+   </property>
+   <property name="text">
+    <string>subscript</string>
    </property>
   </action>
  </widget>

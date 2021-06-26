@@ -55,6 +55,7 @@ public:
 
 public slots:
     //void textChangedSlot();
+    void on_text_format_change(const QTextCharFormat &f);
 
 private slots:
 
@@ -145,6 +146,12 @@ private slots:
     void on_actionHindi_triggered();
 
     void on_actionEnglish_triggered();
+
+    void on_actionBold_triggered(bool checked);
+
+    void on_actionsuperscript_triggered(bool checked);
+
+    void on_actionsubscript_triggered(bool checked);
 
 private:
     Ui::MainWindow *ui;
